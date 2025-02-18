@@ -1,0 +1,114 @@
+/* Estilo do container principal */
+.card-body {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Tela de início do jogo */
+.game-start {
+  text-align: center;
+}
+
+.input-name {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.start-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.start-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Tela de fim de jogo */
+.game-over {
+  text-align: center;
+}
+
+.game-over-title {
+  color: #dc3545;
+}
+
+.correct-answers {
+  margin: 10px 0;
+}
+
+.restart-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+/* Container do quiz */
+.quiz-container {
+  margin-top: 20px;
+}
+
+/* Botões de opções */
+.option-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #6c757d;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.option-button:hover {
+  background-color: #5a6268;
+}
+
+/* Opção correta e errada */
+.selected-correct {
+  background-color: #28a745;
+  color: white;
+}
+
+.selected-wrong {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Botão de confirmar */
+.confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #218838;
+}
+
+.confirm-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Ícone do FontAwesome */
+.icon-film {
+  margin-left: 10px;
+}
