@@ -1,75 +1,113 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm } from '@fortawesome/free-regular-svg-icons';
-import logo from './img/LogoCineTrivia.png';
+import React, { useState, useEffect } from 'react';
 import Header from './pages/Header';
 import Body from './pages/Body';
+import logo from './img/LogoCineTrivia.png';
+import resultado1 from './img/framboesa.jpg';
+import resultado2 from './img/cinema.jpg';
+import resultado3 from './img/Oscar.jpg';
 import './style/CineTrivia.css';
-
+import background from './img/background.jpg'; // Importa a imagem de fundo
 
 function CineTrivia() {
   const [gameStarted, setGameStarted] = useState(false);
   const [playerName, setPlayerName] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [answerStatus, setAnswerStatus] = useState(null);
 
-  const questions = [
-    {
-      question: 'Qual é o maior filme de bilheteria de todos os tempos?',
-      options: ['Avatar', 'Vingadores: Ultimato', 'Titanic', 'Star Wars'],
-      answer: 0,
-    },
-    // Outras perguntas...
-  ];
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      var requestOptions = {
+        method: 'GET',
+        headers: { "Content-Type": "application/json" }
+      };
+
+      try {
+        const response = await fetch("https://localhost:5000/api/Jogos", requestOptions);
+
+        if (!response.ok) {
+          throw new Error("Erro ao carregar perguntas");
+        }
+
+        const data = await response.json();
+
+        const shuffled = data.sort(() => 0.5 - Math.random()).slice(0, 15);
+        setQuestions(shuffled);
+      } catch (error) {
+        console.error("Erro ao buscar perguntas:", error.message);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
 
   const startGame = () => {
     setGameStarted(true);
     setIsGameOver(false);
     setCorrectAnswers(0);
     setCurrentQuestion(0);
+    setSelectedOption(null);
+    setAnswerStatus(null);
   };
 
-  const handleOptionSelect = (index) => {
-    setSelectedOption(index);
+  const handleOptionSelect = (option) => {
+    if (answerStatus === null) {
+      setSelectedOption(option);
+    }
   };
 
   const confirmAnswer = () => {
-    const isAnswerCorrect = selectedOption === questions[currentQuestion].answer;
-  
-    // Adiciona a classe de piscar
-    const optionClass = isAnswerCorrect ? 'selected-correct confirmed' : 'selected-wrong confirmed';
-    document.querySelectorAll('.option-button')[selectedOption].className = `option-button ${optionClass}`;
-  
-    // Aguarda o efeito de piscar antes de continuar
+    if (!questions.length || selectedOption === null) return;
+
+    const current = questions[currentQuestion];
+    const isCorrect = selectedOption === current.respostaCorreta;
+
+    setAnswerStatus(isCorrect ? 'correct' : 'wrong');
+
     setTimeout(() => {
-      if (isAnswerCorrect) {
-        setCorrectAnswers(correctAnswers + 1);
-        if (currentQuestion < questions.length - 1) {
-          setCurrentQuestion(currentQuestion + 1);
-          setSelectedOption(null);
-        } else {
-          setIsGameOver(true);
-        }
+      if (isCorrect) {
+        setCorrectAnswers((prev) => prev + 1);
+      }
+
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelectedOption(null);
+        setAnswerStatus(null);
       } else {
         setIsGameOver(true);
       }
-    }, 2000); // Aguarda 2 segundos para exibir o efeito de piscar
+    }, 2000);
   };
-  
+
+
+  const getResultImage = () => {
+    if (correctAnswers <= 5) return resultado1;
+    if (correctAnswers <= 10) return resultado2;
+    return resultado3;
+  };
 
   return (
-    <div className="card-container">
+    
+      <div 
+      className="card-container"
+      style={{
+        backgroundImage: `url(${background})`, 
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh"
+      }}
+    >
       <div className="card">
-        {/* Header com verificação */}
-        <header className='card-header'>
+        <header className="card-header">
           <Header
-            logo={logo}
-            question={gameStarted && !isGameOver ? questions[currentQuestion].question : null}
+            logo={isGameOver ? getResultImage() : logo}
+            question={gameStarted && !isGameOver ? questions[currentQuestion]?.pergunta : null}
           />
         </header>
-        {/* Body */}
         <Body
           gameStarted={gameStarted}
           playerName={playerName}
@@ -83,6 +121,7 @@ function CineTrivia() {
           handleOptionSelect={handleOptionSelect}
           selectedOption={selectedOption}
           confirmAnswer={confirmAnswer}
+          answerStatus={answerStatus}
         />
       </div>
     </div>

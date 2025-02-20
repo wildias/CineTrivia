@@ -16,6 +16,7 @@ function Body({
     handleOptionSelect,
     selectedOption,
     confirmAnswer,
+    answerStatus,
 }) {
     return (
         <div className="card-body">
@@ -49,27 +50,40 @@ function Body({
                 </div>
             ) : (
                 <div className="quiz-container">
-                    {questions[currentQuestion].options.map((option, index) => (
-                        <button
-                            key={index}
-                            onClick={() => handleOptionSelect(index)}
-                            className={`option-button ${selectedOption === index
-                                    ? selectedOption === questions[currentQuestion].answer
-                                        ? 'selected-correct'
-                                        : 'selected-wrong'
-                                    : ''
-                                }`}
-                        >
-                            {option}
-                            {selectedOption === index && (
-                                <FontAwesomeIcon icon={faFilm} className="icon-film" />
-                            )}
-                        </button>
-                    ))}
+                    <div className="opcoes">
+                        {[
+                            questions[currentQuestion]?.opcao_1,
+                            questions[currentQuestion]?.opcao_2,
+                            questions[currentQuestion]?.opcao_3,
+                            questions[currentQuestion]?.opcao_4,
+                        ].map((opcao, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleOptionSelect(opcao)}
+                                className={`option-button 
+                                    ${selectedOption === opcao ? "selected" : ""} 
+                                    ${
+                                        answerStatus
+                                            ? opcao === questions[currentQuestion]?.respostaCorreta
+                                                ? "selected-correct blink"
+                                                : opcao === selectedOption
+                                                ? "selected-wrong blink"
+                                                : ""
+                                            : ""
+                                    }`}
+                                disabled={answerStatus !== null}
+                            >
+                                {opcao}
+                                {selectedOption === opcao && (
+                                    <FontAwesomeIcon icon={faFilm} className="icon-film" />
+                                )}
+                            </button>
+                        ))}
+                    </div>
 
                     <button
                         onClick={confirmAnswer}
-                        disabled={selectedOption === null}
+                        disabled={selectedOption === null || answerStatus !== null}
                         className="confirm-button"
                     >
                         Confirmar Resposta

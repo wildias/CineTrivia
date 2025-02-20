@@ -2,11 +2,18 @@
 .card-body {
   padding: 20px;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 /* Tela de início do jogo */
 .game-start {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-name {
@@ -15,6 +22,7 @@
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 16px;
 }
 
 .start-button {
@@ -23,12 +31,18 @@
   border-radius: 4px;
   background-color: #28a745;
   color: white;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .start-button:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
+}
+
+.start-button:hover:not(:disabled) {
+  background-color: #218838;
 }
 
 /* Tela de fim de jogo */
@@ -38,10 +52,12 @@
 
 .game-over-title {
   color: #dc3545;
+  font-size: 24px;
 }
 
 .correct-answers {
   margin: 10px 0;
+  font-size: 18px;
 }
 
 .restart-button {
@@ -50,19 +66,36 @@
   border-radius: 4px;
   background-color: #28a745;
   color: white;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.restart-button:hover {
+  background-color: #218838;
 }
 
 /* Container do quiz */
 .quiz-container {
   margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Pergunta do quiz */
+.quiz-container h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
 }
 
 /* Botões de opções */
 .option-button {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -70,6 +103,7 @@
   color: white;
   text-align: left;
   cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -77,24 +111,44 @@
   background-color: #5a6268;
 }
 
-/* Opção correta e errada */
-.selected-correct {
-  background-color: #28a745;
-  color: white;
+/* Opção selecionada antes de confirmar */
+.selected {
+  background-color: yellow !important;
+  color: black !important;
 }
 
+/* Opção correta ao confirmar */
+.selected-correct {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+/* Opção errada ao confirmar */
 .selected-wrong {
-  background-color: #dc3545;
-  color: white;
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+/* Animação de piscar ao confirmar a resposta */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.blink {
+  animation: blink 0.5s linear infinite;
 }
 
 /* Botão de confirmar */
 .confirm-button {
-  padding: 10px 20px;
+  padding: 12px 20px;
+  margin-top: 15px;
   border: none;
   border-radius: 4px;
   background-color: #28a745;
   color: white;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -108,7 +162,10 @@
   cursor: not-allowed;
 }
 
-/* Ícone do FontAwesome */
+
 .icon-film {
   margin-left: 10px;
+  color: white;
 }
+
+
