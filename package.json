@@ -2,6 +2,16 @@
   "name": "cinetrivia",
   "version": "0.1.0",
   "private": true,
+  "description": "Jogo de perguntas e respostas sobre cinema",
+  "author": {
+    "name": "Wil Dias",
+    "email": "wildiasdev@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wildias/CineTrivia.git"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",

@@ -9,7 +9,7 @@ function Header({ logo, question }) {
         style={{ maxWidth: '300px', marginBottom: '10px' }}
       />
       {question && (
-        <h2 style={{ marginTop: '20px', fontSize: '18px', color: 'gold' }}>
+        <h2 style={{ marginTop: '0.5px', fontSize: '17px', color: 'gold' }}>
           {question}
         </h2>
       )}

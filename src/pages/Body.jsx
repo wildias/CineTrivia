@@ -10,13 +10,13 @@ function Body({
     startGame,
     isGameOver,
     correctAnswers,
-    setGameStarted,
     questions,
     currentQuestion,
     handleOptionSelect,
     selectedOption,
     confirmAnswer,
     answerStatus,
+    resetGame,
 }) {
     return (
         <div className="card-body">
@@ -42,7 +42,7 @@ function Body({
                     <h1 className="game-over-title">Game Over</h1>
                     <p className="correct-answers">Respostas corretas: {correctAnswers}</p>
                     <button
-                        onClick={() => setGameStarted(false)}
+                        onClick={resetGame}
                         className="restart-button"
                     >
                         Jogar Novamente
@@ -51,11 +51,10 @@ function Body({
             ) : (
                 <div className="quiz-container">
                     <div className="opcoes">
-                        {[
-                            questions[currentQuestion]?.opcao_1,
-                            questions[currentQuestion]?.opcao_2,
-                            questions[currentQuestion]?.opcao_3,
-                            questions[currentQuestion]?.opcao_4,
+                        {[questions[currentQuestion]?.opcao_1,
+                          questions[currentQuestion]?.opcao_2,
+                          questions[currentQuestion]?.opcao_3,
+                          questions[currentQuestion]?.opcao_4,
                         ].map((opcao, index) => (
                             <button
                                 key={index}

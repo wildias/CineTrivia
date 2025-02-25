@@ -3,10 +3,13 @@ import Header from './pages/Header';
 import Body from './pages/Body';
 import logo from './img/LogoCineTrivia.png';
 import resultado1 from './img/framboesa.jpg';
-import resultado2 from './img/cinema.jpg';
-import resultado3 from './img/Oscar.jpg';
+import resultado2 from './img/Silvio.jpg';
+import resultado3 from './img/pearl.jpg';
+import resultado4 from './img/DiCaprio.jpg';
+import resultado5 from './img/cinema.jpg';
+import resultado6 from './img/Oscar.jpg';
 import './style/CineTrivia.css';
-import background from './img/background.jpg'; // Importa a imagem de fundo
+import background from './img/background.jpg';
 
 function CineTrivia() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -26,7 +29,7 @@ function CineTrivia() {
       };
 
       try {
-        const response = await fetch("https://localhost:5000/api/Jogos", requestOptions);
+        const response = await fetch("https://localhost:5000/api/cinetrivia", requestOptions);
 
         if (!response.ok) {
           throw new Error("Erro ao carregar perguntas");
@@ -82,16 +85,30 @@ function CineTrivia() {
     }, 2000);
   };
 
-
   const getResultImage = () => {
-    if (correctAnswers <= 5) return resultado1;
-    if (correctAnswers <= 10) return resultado2;
-    return resultado3;
+    if (correctAnswers < 1) return resultado1;
+    if (correctAnswers <= 4) return resultado2;
+    if (correctAnswers <= 8) return resultado3;
+    if (correctAnswers <= 12) return resultado4;
+    if (correctAnswers <= 14) return resultado5;
+    return resultado6;
+  };
+
+  const getResultPhrase = () => {
+    if (correctAnswers < 1) return "Você precisa assistir mais filmes! 🎥🍿";
+    if (correctAnswers <= 4) return "Você conhece um pouco, mas ainda falta! 📺";
+    if (correctAnswers <= 8) return "Bom trabalho! Você tem um conhecimento sólido. 🎬";
+    if (correctAnswers <= 12) return "Excelente! Você realmente entende de cinema! 🌟";
+    if (correctAnswers <= 14) return "Incrível! Quase perfeito! 🎭";
+    return "Parabéns! Você é um verdadeiro especialista no cinema! 🏆🎥";
+  };
+
+  const resetGame = () => {
+    window.location.reload();
   };
 
   return (
-    
-      <div 
+    <div 
       className="card-container"
       style={{
         backgroundImage: `url(${background})`, 
@@ -105,7 +122,7 @@ function CineTrivia() {
         <header className="card-header">
           <Header
             logo={isGameOver ? getResultImage() : logo}
-            question={gameStarted && !isGameOver ? questions[currentQuestion]?.pergunta : null}
+            question={isGameOver ? getResultPhrase() : (gameStarted ? questions[currentQuestion]?.pergunta : null)}
           />
         </header>
         <Body
@@ -122,6 +139,7 @@ function CineTrivia() {
           selectedOption={selectedOption}
           confirmAnswer={confirmAnswer}
           answerStatus={answerStatus}
+          resetGame={resetGame} 
         />
       </div>
     </div>

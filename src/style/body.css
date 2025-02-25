@@ -1,4 +1,4 @@
-/* Estilo do container principal */
+
 .card-body {
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -8,7 +8,6 @@
   text-align: center;
 }
 
-/* Tela de início do jogo */
 .game-start {
   display: flex;
   flex-direction: column;
@@ -45,7 +44,6 @@
   background-color: #218838;
 }
 
-/* Tela de fim de jogo */
 .game-over {
   text-align: center;
 }
@@ -75,7 +73,6 @@
   background-color: #218838;
 }
 
-/* Container do quiz */
 .quiz-container {
   margin-top: 20px;
   width: 100%;
@@ -85,13 +82,12 @@
   align-items: center;
 }
 
-/* Pergunta do quiz */
 .quiz-container h2 {
   font-size: 20px;
   margin-bottom: 15px;
 }
 
-/* Botões de opções */
+
 .option-button {
   display: block;
   width: 100%;
@@ -111,25 +107,21 @@
   background-color: #5a6268;
 }
 
-/* Opção selecionada antes de confirmar */
 .selected {
   background-color: yellow !important;
   color: black !important;
 }
 
-/* Opção correta ao confirmar */
 .selected-correct {
   background-color: #28a745 !important;
   color: white !important;
 }
 
-/* Opção errada ao confirmar */
 .selected-wrong {
   background-color: #dc3545 !important;
   color: white !important;
 }
 
-/* Animação de piscar ao confirmar a resposta */
 @keyframes blink {
   0% { opacity: 1; }
   50% { opacity: 0.5; }
@@ -140,10 +132,9 @@
   animation: blink 0.5s linear infinite;
 }
 
-/* Botão de confirmar */
 .confirm-button {
   padding: 12px 20px;
-  margin-top: 15px;
+  margin-top: 10px;
   border: none;
   border-radius: 4px;
   background-color: #28a745;
